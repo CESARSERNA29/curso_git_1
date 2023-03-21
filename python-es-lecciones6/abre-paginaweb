@@ -1,0 +1,112 @@
+
+
+
+# to open/create a new html file in the write mode
+f = open('GFG.html', 'w')
+
+# the html code which will go in the file GFG.html
+html_template = """<html>
+<head>
+<title>Title</title>
+</head>
+<body>
+<h2>Welcome To GFG</h2>
+
+<p>Default code has been loaded into the Editor.</p>
+
+</body>
+</html>
+"""
+
+# writing the code into the file
+f.write(html_template)
+
+# close the file
+f.close()
+
+
+
+
+
+
+import  pickle
+#El enfoque es la diferencia entre RB y R, RB es abierta binario, R es un archivo de texto abierto
+f=open('C:\Users\cesar.serna\OneDrive - Grupo Meiko\Documentos\Códigos Python - Recibidos\descomprimir\PreciosyLimpieza (1)\modeloMXPerformance.pkl','rb')
+data = pickle.load(f)
+print(data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+
+# ========================================
+
+# Consulta Items Sell In - 09/11/2022
+
+####  Importar  Librerías
+
+import seaborn as sns
+import numpy as np
+import pandas as pd
+import pymysql
+from datetime import datetime
+import matplotlib.pyplot as plt
+import sqlalchemy
+from sqlalchemy.types import CHAR, INT, FLOAT
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
+
+import warnings
+warnings.filterwarnings('ignore')
+
+# ========================================================================================================
+#                   Limpieza de Facturas con Precios y Unidades Estimadas                                #
+# ========================================================================================================
+# ========================================================================================================
+# Este proceso debe generarse los días del siguiente mes al mes que se desea generar
+# es decir, si se quiere generar Marzo, deberÍa correrse este proceso en Abril que es el mes siguiente.
+# ========================================================================================================
+
+
+############### CONFIGURAR CONEXION ###################
+conexion1 = pymysql.connect(host='meiko-mariadb.cmebrzxfmsvx.us-east-2.rds.amazonaws.com', user='control_cesar_serna', password="5LnBwfo#0qf2q3Fg^",
+                            database="marketPerformance", port=43306)
+
+cur1 = conexion1.cursor()     # NOTA: PARA QUE ES ESTA INSTRUCCIÓN: .cursor() Rta/ .cursor() es una de las formas de hacer consultas MySQL desde Python
+
+
+
+################## IMPORTAR LA BASE ################################
+
+HistoricoCalidad_SI = pd.read_sql_query("select distinct f.* from marketPerformance.Historico_CalidadFacturas f where "
+                            "f.Ciclo = '922' ", conexion1)
+
+
+conexion1.close()
+
+
+HistoricoCalidad_SI.columns
+
+
+# Exportando la Base a Excel:
+# EXPORTANDO A EXCEL:
+import pandas as pd
+import openpyxl
+HistoricoCalidad_SI.to_excel("C:/Users/cesar.serna/OneDrive - Grupo Meiko/Escritorio/HistoricoCalidad_SI.xlsx",
+                            header=True, index=False, sheet_name="Historico_SellIn")
+'''
